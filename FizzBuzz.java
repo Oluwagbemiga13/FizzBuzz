@@ -45,8 +45,11 @@ public class FizzBuzz {
         valid.add("Clean");
         valid.add("All");
     }
-    
-    //
+    /*
+    Checks name if there are any numbers. If yes than it knows you made your 
+    name up and gives you name Aladeen. Search "Aladeen restaurant scene" 
+    on YouTube 
+    */
     public static boolean isAladeen(){
         boolean aladeen = false;
         for(int i = 0; i < nameOfUser.length();i++){
@@ -60,7 +63,7 @@ public class FizzBuzz {
         }
         return aladeen;
     }
-    // Introduce program
+    // Introduce program and takes userName from user 
     public void introduce(){
         
         Scanner scanner = new Scanner(System.in);
@@ -84,6 +87,7 @@ public class FizzBuzz {
         
     }
     
+    // Cleans all ArayLists. Its used in search method
     public static void cleanMemory(){
         fizz.clear();
         buzz.clear();
@@ -129,15 +133,7 @@ public class FizzBuzz {
                 }
             }
              } 
-            /*
-                if(command<=3&&command>=0){
-                    isValid = true;
-                    
-                if(command == 0){
-                        System.out.println("You entered 0.");
-                        menu();
-                    }
-                }*/
+
         if (commandMenu == 0){
             menu();
             isValid = true;
@@ -169,7 +165,6 @@ public class FizzBuzz {
        inputNumber = scanner.nextInt();
        }
        catch(Exception InputMismatchException){
-           //System.out.println("Invalid input! Try again.");
            inputNumber = -1;
        }
        if(inputNumber<1){
@@ -207,7 +202,7 @@ public class FizzBuzz {
             }
         }
 
-    // prints selected List  NEEDS TO CORECT SINGUAR IF THERE IS JUST ONE.
+    // prints selected List. Some troubles with singular and plural.
     public static void printNumbers(){
         boolean isValid;
         ArrayList<Integer> numbersForPrint = new ArrayList<>();
@@ -329,17 +324,7 @@ public class FizzBuzz {
     public static void main(String[] args) {
         FizzBuzz test = new FizzBuzz();
         test.introduce();
-        
         menu();
-        
-        /*
-        search(10);
-        printNumbers(fizz,"Fizz");
-        printNumbers(buzz,"Buzz");
-        printNumbers(fizzBuzz,"FizzBuzz");
-        printNumbers(clean,"Clean");
-*/
-    
     }
     
 }
