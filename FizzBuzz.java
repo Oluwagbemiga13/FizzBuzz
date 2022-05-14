@@ -63,8 +63,8 @@ public class FizzBuzz {
         clean.clear();
     }
     
-    // Starts menu THERE IS A MISTAKE. prints EXIT several times.
-    public static void menu(){
+    // Starts main menu 
+    public static void menu ()throws InputMismatchException{
         //int command;
         boolean isValid;
         
@@ -77,9 +77,14 @@ public class FizzBuzz {
         System.out.println("***************************");
         
         Scanner scanner = new Scanner(System.in);
+        try{
         System.out.print("Type your comand HERE : ");
         commandMenu = scanner.nextInt();
-
+        }
+        catch(Exception InputMismatchException){
+        System.out.print("\nInvalid input! Try again.");
+        commandMenu = 0;
+        }
         // HERE you are trying to check if input is valid and loop until it´s valid.
         if(commandMenu > 3 || commandMenu < 0){
             isValid = false;
@@ -118,9 +123,8 @@ public class FizzBuzz {
         if (commandMenu == 3){
            isValid = true;
            System.out.println("\nEXITING PROGRAM. BYE!!");
+           System.exit(0);
         }
-        
-     
     }
     
     // Searches for FB numbers. Add them into Lists and prints output.
@@ -153,14 +157,20 @@ public class FizzBuzz {
     public static void search(){
        boolean isValid = true;
        cleanMemory();
+       int inputNumber;
        
        System.out.print("\nPlease type the higest number you want to check: ");
        Scanner scanner = new Scanner(System.in);
-       int inputNumber = scanner.nextInt();
-       
+       try{
+       inputNumber = scanner.nextInt();
+       }
+       catch(Exception InputMismatchException){
+           System.out.println("Invalid input! Try again.");
+           inputNumber = -1;
+       }
        if(inputNumber<1){
            isValid = false;
-           System.out.println("Please insert number bigger than 0!");
+           System.out.println("Please insert new number.");
            search();
        }
        
@@ -193,19 +203,24 @@ public class FizzBuzz {
             }
         }
 
-    
     // prints selected List  NEEDS TO CORECT SINGUAR IG THERE IS JUST ONE.
     public static void printNumbers(){
         boolean isValid;
-
+        ArrayList<Integer> numbersForPrint = new ArrayList<>();
+        int command;
+        
         // Scanner
         System.out.println("\n_________PRINT_________");
         System.out.println("0 = Fizz  \n1 = Buzz \n2 = FizzBuzz \n3 = Clean \n4 = Back to MENU");
         System.out.println("***********************");
         System.out.println("Type command and press ENTER:");
         Scanner scanner = new Scanner(System.in);
-        int command = scanner.nextInt();
-        ArrayList<Integer> numbersForPrint = new ArrayList<>();
+        try{
+        command = scanner.nextInt();
+                }
+        catch(Exception InputMismatchException){
+            command = 5;
+        }
         
         if (command==0){
             for(int i = 0; i < fizz.size(); i++){
@@ -233,6 +248,11 @@ public class FizzBuzz {
         }
         if (command==4){
             menu();
+        }
+        
+        if (command<0||command>4){
+            System.out.println("\nInvalid input! Try again.");
+            printNumbers();
         }
 
         System.out.println("\nMETHOD printNumbers:");
