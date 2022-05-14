@@ -1,27 +1,33 @@
 /*
  * Created by Daniel.
- * Spend 6 hours working on it.
- * 
+ * Spend 8 hours working on it.
+ * 15.5.2022
  */
 
-// This is upgraded version of FizzBuzz
-// It has menu and saves numbers in ArrayLists
-// It prints numbers.
+
 package fizzbuzz;
 import java.util.*;
 
-
-/**
- *
- * @author Daniel
- */
+/*This is upgraded version of FizzBuzz
+ *It has menu and saves numbers in ArrayLists
+ *It prints these ArrayLists
+ *I fixed all Bugs I found.
+ *Doesnt works with plurals. Maybe in a future.
+ *I really improved my skills in User input.
+*/
 public class FizzBuzz {
-    
+    // It should´ve made it better UI. Doesn´t working.
+    public static void startAtTop(){
+    for(int i = 1; i<37;i++){
+        System.out.print("\n");
+    }
+    }
+   
     // Creating ArrayLists
     public static ArrayList<Integer> fizz = new ArrayList<>();
     public static ArrayList<Integer> buzz = new ArrayList<>();
     public static ArrayList<Integer> fizzBuzz = new ArrayList<>();
-    public static ArrayList<Integer> fizzBuzzAll = new ArrayList<>();
+    public static ArrayList<String> fizzBuzzAll = new ArrayList<>();
     public static ArrayList<Integer> clean = new ArrayList<>();
     public static ArrayList<String> valid = new ArrayList<>();
     
@@ -37,14 +43,36 @@ public class FizzBuzz {
         valid.add("Buzz");
         valid.add("FizzBuzz");
         valid.add("Clean");
+        valid.add("All");
     }
     
+    //
+    public static boolean isAladeen(){
+        boolean aladeen = false;
+        for(int i = 0; i < nameOfUser.length();i++){
+            char character = nameOfUser.charAt(i);
+            if(character == '0'||character == '1'||character == '2'||
+               character == '3'||character == '4'||character == '5'||
+               character == '6'||character == '7'||character == '8'||
+               character == '9'){
+            aladeen = true;
+            }
+        }
+        return aladeen;
+    }
     // Introduce program
     public void introduce(){
         
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter your name and press ENTER : ");
         nameOfUser = scanner.nextLine();
+        
+        if(isAladeen()){
+        System.out.println("\nThere is a number in a name?");
+        System.out.println("Who are you? An Aladeen sympathizer?!");
+        System.out.println("No! It´s Aladeen!");
+        nameOfUser = "Aladeen";
+        }
         System.out.println("\n");
         System.out.println("Hi " + nameOfUser + ".");
         System.out.println("I am program that searches for FizzBuzz numbers.");
@@ -61,12 +89,14 @@ public class FizzBuzz {
         buzz.clear();
         fizzBuzz.clear();
         clean.clear();
+        fizzBuzzAll.clear();
     }
     
     // Starts main menu 
     public static void menu ()throws InputMismatchException{
         //int command;
         boolean isValid;
+        //startAtTop();
         
         System.out.println("\n_________MAIN MENU_________");
         System.out.println("0 - MENU");
@@ -127,32 +157,6 @@ public class FizzBuzz {
         }
     }
     
-    // Searches for FB numbers. Add them into Lists and prints output.
-    public static void searchAndPrint(int inputNumber){
-        
-       
-       for(int i = 1; i <= inputNumber; i++){
-            if (i%3==0&&i%5==0){
-                System.out.println("FizzBuzz");
-                fizzBuzz.add(i);
-                fizzBuzzAll.add(i);
-            }
-            else if (i%3==0){
-                System.out.println("Fizz");
-                fizz.add(i);
-                fizzBuzzAll.add(i);
-            }
-            else if (i%5==0){
-                System.out.println("Buzz");
-                buzz.add(i);
-                fizzBuzzAll.add(i);
-            }
-            else {
-                System.out.println(i);
-            }
-            }
-        }
-    
     // Searches for FB numbers. Add them into Lists.
     public static void search(){
        boolean isValid = true;
@@ -165,37 +169,37 @@ public class FizzBuzz {
        inputNumber = scanner.nextInt();
        }
        catch(Exception InputMismatchException){
-           System.out.println("Invalid input! Try again.");
+           //System.out.println("Invalid input! Try again.");
            inputNumber = -1;
        }
        if(inputNumber<1){
            isValid = false;
-           System.out.println("Please insert new number.");
+           System.out.println("Invalid input! Please insert new number.");
            search();
        }
        
        if(isValid){
        for(int i = 1; i <= inputNumber; i++){
-           int number = 1;
+           
                    
             if (i%3==0&&i%5==0){
                 //System.out.println("FizzBuzz");
                 fizzBuzz.add(i);
-                fizzBuzzAll.add(i); 
+                fizzBuzzAll.add("FizzBuzz"); 
             }
             else if (i%3==0){
                 //System.out.println("Fizz");
                 fizz.add(i);
-                fizzBuzzAll.add(i);
+                fizzBuzzAll.add("Fizz");
             }
             else if (i%5==0){
                 //System.out.println("Buzz");
                 buzz.add(i);
-                fizzBuzzAll.add(i);
+                fizzBuzzAll.add("Buzz");
             }
             else {
-                number = i;
-                clean.add(number);
+                clean.add(i);
+                fizzBuzzAll.add(String.valueOf(i));
             }
             }
         System.out.println("I searched numbers from 1 to " + inputNumber);
@@ -203,15 +207,17 @@ public class FizzBuzz {
             }
         }
 
-    // prints selected List  NEEDS TO CORECT SINGUAR IG THERE IS JUST ONE.
+    // prints selected List  NEEDS TO CORECT SINGUAR IF THERE IS JUST ONE.
     public static void printNumbers(){
         boolean isValid;
         ArrayList<Integer> numbersForPrint = new ArrayList<>();
+        ArrayList<String> stringForPrint = new ArrayList<>();
         int command;
+        String ending ="es.";
         
         // Scanner
         System.out.println("\n_________PRINT_________");
-        System.out.println("0 = Fizz  \n1 = Buzz \n2 = FizzBuzz \n3 = Clean \n4 = Back to MENU");
+        System.out.println("0 - Fizz  \n1 - Buzz \n2 - FizzBuzz \n3 - Clean \n4 - Whole sequence \n5 - Back to MENU");
         System.out.println("***********************");
         System.out.println("Type command and press ENTER:");
         Scanner scanner = new Scanner(System.in);
@@ -247,16 +253,28 @@ public class FizzBuzz {
             type = "Clean";
         }
         if (command==4){
+            for(int i = 0; i < fizzBuzzAll.size(); i++){
+                stringForPrint.add(fizzBuzzAll.get(i));
+            }
+            type = "All";
+        }       
+        if (command==5){
             menu();
         }
-        
-        if (command<0||command>4){
+        if (command<0||command>5){
             System.out.println("\nInvalid input! Try again.");
             printNumbers();
+        }       
+        if(numbersForPrint.size()==1){
+            ending = ".";
+        }
+        // here you are trying to add ending to CLEAN category
+        if(command==3){
+            ending = "s.";
         }
 
-        System.out.println("\nMETHOD printNumbers:");
-        if(numbersForPrint.isEmpty()){
+        System.out.println("\n");
+        if(numbersForPrint.isEmpty()&& stringForPrint.isEmpty()){
             System.out.println("There are no " + type + " numbers!");
             isValid = false;
         }
@@ -270,17 +288,35 @@ public class FizzBuzz {
         //}
         
         else if(type.equals("Clean")){
-            
+            if(numbersForPrint.size()==1){
+            System.out.println("I´ve found " + numbersForPrint.size() + " " + type + ".");
+            isValid = true;
+            }
+            else{
             System.out.println("I´ve found " + numbersForPrint.size() + " " + type + "s.");
             isValid = true;
+            }
         }
-        else{
-        System.out.println("I´ve found " + numbersForPrint.size() + " " + type + "es.");
+        else if(type.equals("All")){
+            if(stringForPrint.size()==1){
+            System.out.println("Here is whole sequence. It contains " + stringForPrint.size() + " record." );
+            isValid = true;
+        }
+            else{
+            System.out.println("Here is whole sequence. It contains " + stringForPrint.size() + " records" );
+            isValid = true;
+            }
+        }
+        else {  
+        System.out.println("I´ve found " + numbersForPrint.size() + " " + type + ending);
         isValid = true;
         }
         if(isValid){
             for (Integer number : numbersForPrint) {
                 System.out.println(type + ": " + number);
+        }
+            for (var var : stringForPrint) {
+                System.out.println("All: " + var);
         }
         }
         menu();
